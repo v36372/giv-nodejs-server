@@ -42,12 +42,12 @@ app.post('/push',function(request,response){
   var options = {
     method: 'POST',
     hostname: 'push.ionic.io',
-    // port:80,
+    port:80,
     path: '/api/v1/push',
     headers: {
       'Content-Type': 'application/json',
       'X-Ionic-Application-Id': appId,
-      'Authorization': 'basic ' + auth
+      'Authorization': 'Basic ' + auth
     }
   };
   // Make the API call
