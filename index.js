@@ -58,16 +58,22 @@ app.post('/push',function(request,response){
     res.on('data', function (chunk) {
       console.log('BODY: ' + chunk);
     });
+
+    res.on('end', function (chunk) {
+      response.send("ok");
+    });
   });
 
   // Error handling.
   req.on('error', function(e) {
     console.log('problem with request: ' + e.message);
+    response.send(e.message);
   });
 
   // Wite data to request body
   console.log("123123");
   req.write(JSON.stringify(notification));
+
   req.end();
 });
 
