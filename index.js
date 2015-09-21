@@ -28,8 +28,8 @@ app.post('/push',function(request,response){
 
   tokens.push(request.body.tokens);
   console.log(request.body.tokens);
+  // var appId = process.env.IONIC_APP_ID;
   var appId = process.env.IONIC_APP_ID;
-  // var appId = ;
 
   // Encode your key
   var auth = new Buffer(privateKey + ':').toString('base64')
@@ -38,7 +38,8 @@ app.post('/push',function(request,response){
   // Build the request object
   var req = {
     method: 'POST',
-    url: 'push.ionic.io/api/v1/push',
+    host: 'push.ionic.io',
+    path: '/api/v1/push',
     headers: {
       'Content-Type': 'application/json',
       'X-Ionic-Application-Id': appId,
