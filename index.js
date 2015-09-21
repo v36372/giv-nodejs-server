@@ -42,12 +42,12 @@ app.post('/push',function(request,response){
   var options = {
     method: 'POST',
     hostname: 'push.ionic.io',
-    port:80,
+    // port:80,
     path: '/api/v1/push',
     headers: {
       'Content-Type': 'application/json',
       'X-Ionic-Application-Id': appId,
-      'Authorization': 'Basic ' + auth
+      'Authorization': 'basic ' + auth
     }
   };
   // Make the API call
@@ -66,6 +66,7 @@ app.post('/push',function(request,response){
   });
 
   // Wite data to request body
+  console.log("123123");
   req.write(JSON.stringify(notification));
   req.end();
 });
