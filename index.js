@@ -36,7 +36,8 @@ app.post('/push',function(request,response){
   // Build the request object
   var req = {
     method: 'POST',
-    host: 'https://push.ionic.io/api/v1/push',
+    host: 'push.ionic.io',
+    path: '/api/v1/push',
     headers: {
       'Content-Type': 'application/json',
       'X-Ionic-Application-Id': appId,
