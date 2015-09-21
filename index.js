@@ -67,7 +67,7 @@ app.post('/push',function(request,response){
 
   // Wite data to request body
   console.log("123123");
-  req.write(JSON.stringify(noti));
+  req.write(JSON.stringify(notification));
   req.end();
 });
 
