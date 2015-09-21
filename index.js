@@ -30,7 +30,7 @@ app.post('/push',function(request,response){
   // tokens.push(request.body.tokens);
   // console.log(request.body.tokens);
 
-  var notification = querystring.stringify(request.body);
+  var notification = request.body.noti;
   // var appId = process.env.IONIC_APP_ID;
   var appId = process.env.IONIC_APP_ID;
 
@@ -67,7 +67,7 @@ app.post('/push',function(request,response){
 
   // Wite data to request body
   console.log("123123");
-  req.write(JSON.stringify(notification));
+  req.write(JSON.stringify(noti));
   req.end();
 });
 
