@@ -1,7 +1,7 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.1.5",
-  "description": "A sample Node.js app using Express 4",
+  "name": "giv-nodejs-server",
+  "version": "0.0.1",
+  "description": "server for giv app",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -19,7 +19,7 @@
   },
   "keywords": [
     "node",
-    "heroku",
+    "giv",
     "express"
   ],
   "license": "MIT"
