@@ -67,7 +67,7 @@ app.post('/push',function(request,response){
 
   console.log("LIST TOKEN : ");
   console.log(tokens);
-
+  console.log(req);
   var pushRequest = http.request(req,callback);
   pushRequest.end();
 });
