@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var http = require('http');
+var querystring = require('querystring')
 var bodyParser = require('body-parser');
 
 app.use(bodyParser());
@@ -26,8 +27,10 @@ app.post('/push',function(request,response){
   var tokens = [];
   // console.log($scope.token);
 
-  tokens.push(request.body.tokens);
-  console.log(request.body.tokens);
+  // tokens.push(request.body.tokens);
+  // console.log(request.body.tokens);
+
+  var notification = request.body;
   // var appId = process.env.IONIC_APP_ID;
   var appId = process.env.IONIC_APP_ID;
 
@@ -36,40 +39,35 @@ app.post('/push',function(request,response){
   // var auth = btoa(privateKey + ':');
 
   // Build the request object
-  var req = {
+  var options = {
     method: 'POST',
-    host: 'push.ionic.io',
+    hostname: 'push.ionic.io',
+    port:80,
     path: '/api/v1/push',
     headers: {
       'Content-Type': 'application/json',
       'X-Ionic-Application-Id': appId,
-      'Authorization': 'basic ' + auth
-    },
-    data: {
-      "tokens": tokens,
-      "notification": {
-        "alert":"Hello World!"
-      }
+      'Authorization': 'Basic ' + auth
     }
   };
   // Make the API call
-  callback = function(res) {
-  var str = ''
-  res.on('data', function (chunk) {
-    str += chunk;
+  var req = http.request(options, function(res) {
+    console.log('STATUS: ' + res.statusCode);
+    console.log('HEADERS: ' + JSON.stringify(res.headers));
+    res.setEncoding('utf8');
+    res.on('data', function (chunk) {
+      console.log('BODY: ' + chunk);
+    });
   });
 
-  res.on('end', function () {
-    console.log("RESPONSE FROM IONIC PUSH : " + str);
-    response.send(str);
+  // Error handling.
+  req.on('error', function(e) {
+    console.log('problem with request: ' + e.message);
   });
-}
 
-  console.log("LIST TOKEN : ");
-  console.log(tokens);
-  console.log(req);
-  var pushRequest = http.request(req,callback);
-  pushRequest.end();
+  // Wite data to request body
+  req.write(JSON.stringify(notification));
+  req.end();
 });
 
 app.listen(app.get('port'), function() {
