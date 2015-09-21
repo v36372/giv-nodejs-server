@@ -30,7 +30,7 @@ app.post('/push',function(request,response){
   // tokens.push(request.body.tokens);
   // console.log(request.body.tokens);
 
-  var notification = request.body;
+  var notification = querystring.stringify(request.body);
   // var appId = process.env.IONIC_APP_ID;
   var appId = process.env.IONIC_APP_ID;
 
