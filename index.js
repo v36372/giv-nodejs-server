@@ -65,6 +65,9 @@ app.post('/push',function(request,response){
   });
 }
 
+  console.log("LIST TOKEN : ");
+  console.log(tokens);
+
   var pushRequest = http.request(req,callback);
   pushRequest.end();
 });
