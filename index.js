@@ -48,12 +48,6 @@ app.post('/push',function(request,response){
       'Content-Type': 'application/json',
       'X-Ionic-Application-Id': appId,
       'Authorization': 'Basic ' + auth
-    },
-    data:{
-      tokens:["APA91bElXfJLbo8_kJd2YEYVKqK4eIh2AQs8QLT_VnLe_vEXGd20G5a4ufg5NBbjUgTJn2z7h3AHaiXrJaTb81omCF5heM9RSjlVmJ5F"],
-      notification:{
-        "alert":"hello world"
-      }
     }
   };
   // Make the API call
@@ -73,7 +67,7 @@ app.post('/push',function(request,response){
 
   // Wite data to request body
   console.log("123123");
-  // req.write(JSON.stringify(notification));
+  req.write(JSON.stringify(notification));
   req.end();
 });
 
