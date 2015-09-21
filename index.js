@@ -9,6 +9,13 @@ app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
 
+app.use(function(req, res, next){
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  next();
+});
+
 app.get('/', function(request, response) {
   response.send("ok");
 });
@@ -18,6 +25,7 @@ app.post('/push',function(request,response){
   var privateKey = process.env.IONIC_PRIVATE_KEY;
   var tokens = [];
   // console.log($scope.token);
+
   tokens.push(request.body.token);
   var appId = process.env.IONIC_APP_ID;
 
