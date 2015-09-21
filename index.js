@@ -26,7 +26,7 @@ app.post('/push',function(request,response){
   var tokens = [];
   // console.log($scope.token);
 
-  tokens.push(request.body.token);
+  tokens.push(request.body.tokens);
   var appId = process.env.IONIC_APP_ID;
 
   // Encode your key
