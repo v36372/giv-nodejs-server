@@ -30,7 +30,8 @@ app.post('/push',function(request,response){
   var appId = process.env.IONIC_APP_ID;
 
   // Encode your key
-  var auth = btoa(privateKey + ':');
+  var auth = new Buffer(privateKey + ':').toString('base64')
+  // var auth = btoa(privateKey + ':');
 
   // Build the request object
   var req = {
