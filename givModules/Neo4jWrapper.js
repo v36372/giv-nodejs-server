@@ -13,13 +13,17 @@ var exports = module.exports = {};
 exports.CreateNewNode = function(request,response,next){
   db.save(request.body.node,request.body.label, function(err, node) {
     if (err){
-      console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
-      response.send(err);
+      if(err.neo4jCause.exception == 'ConstraintViolationException')
+        response.send("Neo4jCreateNewNode ------------ FAILED, VIOLATE CONSTRAINT")
+      else
+        response.send("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
+      // response.send(err);
       // throw err;    BAD PRACTICE ERROR HANDLING
+      console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
       return next(err);
     }
     console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
-    response.send("ok");
+    response.send("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
   });
 };
 
@@ -27,13 +31,14 @@ exports.CreateNewNode = function(request,response,next){
 exports.CreateNewRela = function(request,response,next){
   db.relate(request.body.sID, request.body.label, request.body.eID, request.body.ext, function(err, relationship) {
     if(err) {
-      console.log("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
-      response.send(err);
+      response.send("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
+      // response.send(err);
       // throw err;   BAD PRACTICE ERROR HANDLING
+      console.log("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
       return next(err);
     }
     console.log("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
-    response.send('ok');
+    response.send("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
   });
 };
 
@@ -45,13 +50,13 @@ exports.QueryWithSkills = function(request,response,next){
 
  db.query(cypher,{hashtag:request.body.skillList.split(',')}, function(err, result) {
    if (err) {
-     console.log("Neo4jQuery ---------- QUERY WITH SKILL LIST FAIL");
-     response.send(err);
+     response.send();
+    //  response.send(err);
     //  throw err;            BAD PRACTICE ERROR HANDLING
     return next(err);
    }
 
    response.send(result);
-   console.log(result);
+  //  console.log(result);
  });
 };
