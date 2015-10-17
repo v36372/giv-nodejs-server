@@ -4,7 +4,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var PushNotiWrapper = require('./givModules/PushNotiWrapper.js');
-var Neo4j = require('./givModules/Neo4jWrapper.js');
+var Neo4jWrapper = require('./givModules/Neo4jWrapper.js');
 
 app.use(bodyParser());
 
