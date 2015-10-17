@@ -7,7 +7,6 @@ exports.PushHandler = function(request,response){
   // Define relevant info
   var privateKey = process.env.IONIC_PRIVATE_KEY;
   var tokens = [];
-  var notification = request.body.noti;
   var appId = process.env.IONIC_APP_ID;
 
   // Encode your key

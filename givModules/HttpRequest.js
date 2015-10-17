@@ -4,6 +4,8 @@ var querystring = require('querystring')
 var exports = module.exports = {};
 
 exports.RequestIonicPush = function(options){
+  var notification = request.body.noti;
+
   var req = http.request(options, function(res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
