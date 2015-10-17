@@ -26,7 +26,11 @@ exports.CreateNewNode = function(request,response,next){
 
 //--------------------Neo4j Create new RELATIONSHIP---------------------------//
 exports.CreateNewRela = function(request,response,next){
-  db.relate(request.body.sID, request.body.label, request.body.eID, request.body.ext, function(err, relationship) {
+  // var cypher = "MATCH (n)<-[r:skill]-(x)"
+  //            + "WHERE n.hashtag in {hashtag}"
+  //            + "RETURN DISTINCT x";
+
+  db.relate({request.body.sID}, request.body.label, {request.body.eID}, request.body.ext, function(err, relationship) {
     if(err) {
       response.send("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
       // response.send(err);
