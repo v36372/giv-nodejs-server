@@ -10,7 +10,8 @@
     "ejs": "2.3.3",
     "express": "4.13.3",
     "body-parser":"1.14.0",
-    "btoa-atob":"0.1.2"
+    "btoa-atob":"0.1.2",
+    "seraph":""
   },
   "engines": {
     "node": "0.12.7"
