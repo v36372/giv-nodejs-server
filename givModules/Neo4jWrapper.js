@@ -28,7 +28,7 @@ exports.CreateNewNode = function(request,response,next){
 exports.CreateNewRela = function(request,response,next){
   var cypher = "MATCH (n),(m)"
              + "WHERE n.lid='" + request.body.sID + "' AND m.skill='" + request.body.eID
-             + "' CREATE (n)-[:" + request.body.label + "]->(m)"
+             + "' CREATE UNIQUE (n)-[:" + request.body.label + "]->(m)"
              + "RETURN n";
 
   // db.relate(request.body.sID, request.body.label, request.body.eID, request.body.ext, function(err, relationship) {
