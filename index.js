@@ -1,8 +1,9 @@
+"use strict";
+
 var express = require('express');
 var app = express();
-var http = require('http');
-var querystring = require('querystring')
 var bodyParser = require('body-parser');
+var PushNotificationWrapper = require('givModules/PushNotificationWrapper.js');
 
 app.use(bodyParser());
 
@@ -21,61 +22,7 @@ app.get('/', function(request, response) {
   response.send("ok");
 });
 
-app.post('/push',function(request,response){
-  // Define relevant info
-  var privateKey = process.env.IONIC_PRIVATE_KEY;
-  var tokens = [];
-  // console.log($scope.token);
-
-  // tokens.push(request.body.tokens);
-  // console.log(request.body.tokens);
-
-  var notification = request.body.noti;
-  // var appId = process.env.IONIC_APP_ID;
-  var appId = process.env.IONIC_APP_ID;
-
-  // Encode your key
-  var auth = new Buffer(privateKey + ':').toString('base64')
-  // var auth = btoa(privateKey + ':');
-
-  // Build the request object
-  var options = {
-    method: 'POST',
-    hostname: 'push.ionic.io',
-    port:80,
-    path: '/api/v1/push',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Ionic-Application-Id': appId,
-      'Authorization': 'Basic ' + auth
-    }
-  };
-  // Make the API call
-  var req = http.request(options, function(res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    res.setEncoding('utf8');
-    res.on('data', function (chunk) {
-      console.log('BODY: ' + chunk);
-    });
-
-    res.on('end', function (chunk) {
-      response.send("ok");
-    });
-  });
-
-  // Error handling.
-  req.on('error', function(e) {
-    console.log('problem with request: ' + e.message);
-    response.send(e.message);
-  });
-
-  // Wite data to request body
-  console.log("123123");
-  req.write(JSON.stringify(notification));
-
-  req.end();
-});
+app.post('/push',PushNotificationWrapper.PushHandler);
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
