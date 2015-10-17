@@ -3,7 +3,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var PushNotificationWrapper = require('givModules/PushNotificationWrapper.js');
+var PushNotificationWrapper = require('givModules/PushNotiWrapper.js');
 
 app.use(bodyParser());
 
