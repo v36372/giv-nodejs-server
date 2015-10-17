@@ -13,9 +13,6 @@ var exports = module.exports = {};
 exports.CreateNewNode = function(request,response,next){
   db.save(request.body.node,request.body.label, function(err, node) {
     if (err){
-      if(err.neo4jCause.exception == 'ConstraintViolationException')
-        response.send("Neo4jCreateNewNode ------------ FAILED, VIOLATE CONSTRAINT")
-      else
         response.send("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
       // response.send(err);
       // throw err;    BAD PRACTICE ERROR HANDLING
