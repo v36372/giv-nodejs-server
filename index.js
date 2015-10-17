@@ -3,7 +3,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var PushNotificationWrapper = require('givModules/PushNotiWrapper.js');
+var PushNotiWrapper = require('./givModules/PushNotiWrapper.js');
 
 app.use(bodyParser());
 
@@ -22,7 +22,7 @@ app.get('/', function(request, response) {
   response.send("ok");
 });
 
-app.post('/push',PushNotificationWrapper.PushHandler);
+app.post('/push',PushNotiWrapper.PushHandler);
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
