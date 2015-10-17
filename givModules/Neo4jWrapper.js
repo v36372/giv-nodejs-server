@@ -13,11 +13,11 @@ var exports = module.exports = {};
 exports.CreateNewNode = function(request,response){
   db.save(request.body.node,request.body.label, function(err, node) {
     if (err){
-      console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE : " + newNode.id);
+      console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE : " + node.id);
       response.send(err);
       throw err;
     }
-    console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE : " + newNode.id);
+    console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE : " + node.id);
     response.send("ok");
   });
 };
@@ -30,7 +30,7 @@ exports.CreateNewRela = function(request,response){
       response.send(err);
       throw err;
     }
-    console.log("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP : " + relationship.id);
+    console.log("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP : " + relationship.id);
     response.send('ok');
   });
 };
