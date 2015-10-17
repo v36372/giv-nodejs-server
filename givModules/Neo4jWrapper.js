@@ -26,17 +26,30 @@ exports.CreateNewNode = function(request,response,next){
 
 //--------------------Neo4j Create new RELATIONSHIP---------------------------//
 exports.CreateNewRela = function(request,response,next){
-  // var cypher = "MATCH (n)<-[r:skill]-(x)"
-  //            + "WHERE n.hashtag in {hashtag}"
-  //            + "RETURN DISTINCT x";
+  var cypher = "MATCH (n),(m)"
+             + "WHERE n.lid='linkedin|GOAswUN93g' AND m.skill='Javascript'"
+             + "CREATE (n)-[:SKILL]->(m)"
+             + "RETURN n";
 
-  db.relate({request.body.sID}, request.body.label, {request.body.eID}, request.body.ext, function(err, relationship) {
-    if(err) {
-      response.send("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
-      // response.send(err);
-      // throw err;   BAD PRACTICE ERROR HANDLING
+  // db.relate(request.body.sID, request.body.label, request.body.eID, request.body.ext, function(err, relationship) {
+  //   if(err) {
+  //     response.send("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
+  //     // response.send(err);
+  //     // throw err;   BAD PRACTICE ERROR HANDLING
+  //     console.log("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
+  //     return next(err);
+  //   }
+  //   console.log("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
+  //   response.send("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
+  // });
+
+  db.query(cypher, function(err, result) {
+    if (err) {
       console.log("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
-      return next(err);
+      response.send("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
+     //  response.send(err);
+     //  throw err;            BAD PRACTICE ERROR HANDLING
+     return next(err);
     }
     console.log("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
     response.send("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
