@@ -16,7 +16,7 @@ exports.CreateNewNode = function(request,response,next){
         response.send("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
       // response.send(err);
       // throw err;    BAD PRACTICE ERROR HANDLING
-      console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
+      console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
       return next(err);
     }
     console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
