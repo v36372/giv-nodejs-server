@@ -11,13 +11,15 @@ var exports = module.exports = {};
 
 //--------------------Neo4j Create new NODE---------------------------//
 exports.CreateNewNode = function(request,response,next){
-  db.save(request.body.node,request.body.label, function(err, node) {
-    if (err){
+  for(node in request.body.nodes){
+    db.save(node,request.body.label, function(err, node) {
+      if (err){
         response.send("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
-      // response.send(err);
-      // throw err;    BAD PRACTICE ERROR HANDLING
-      console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
-      return next(err);
+        // response.send(err);
+        // throw err;    BAD PRACTICE ERROR HANDLING
+        console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
+        return next(err);
+      }
     }
     console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
     response.send("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
@@ -26,34 +28,25 @@ exports.CreateNewNode = function(request,response,next){
 
 //--------------------Neo4j Create new RELATIONSHIP---------------------------//
 exports.CreateNewRela = function(request,response,next){
-  var cypher = "MATCH (n),(m)"
-             + "WHERE n.lid='" + request.body.sID + "' AND m.skill='" + request.body.eID
-             + "' CREATE UNIQUE (n)-[:" + request.body.label + "]->(m)"
-             + "RETURN n";
-
-  // db.relate(request.body.sID, request.body.label, request.body.eID, request.body.ext, function(err, relationship) {
-  //   if(err) {
-  //     response.send("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
-  //     // response.send(err);
-  //     // throw err;   BAD PRACTICE ERROR HANDLING
-  //     console.log("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
-  //     return next(err);
-  //   }
-  //   console.log("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
-  //   response.send("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
-  // });
-
-  db.query(cypher, function(err, result) {
-    if (err) {
-      console.log("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
-      response.send("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
-     //  response.send(err);
-     //  throw err;            BAD PRACTICE ERROR HANDLING
-     return next(err);
-    }
-    console.log("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
-    response.send("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
-  });
+  for(var node in request.body.nodes){
+    var cypher = "MATCH (n),(m)"
+               + "WHERE n.lid='" + node.sID + "' AND m.skill='" + node.eID
+               + "' CREATE UNIQUE (n)-[r:" + request.body.label + "]->(m)"
+               + "WHERE r.level='Intermediate'"
+               + "RETURN n";
+               
+    db.query(cypher, function(err, result) {
+      if (err) {
+        console.log("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
+        response.send("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
+       //  response.send(err);
+       //  throw err;            BAD PRACTICE ERROR HANDLING
+       return next(err);
+      }
+      console.log("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
+      response.send("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
+    });
+  }
 };
 
 //--------------------Neo4j Query---------------------------//
