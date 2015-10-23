@@ -96,7 +96,7 @@ exports.GetAllSkill = function(request,response,next){
 };
 
 //--------------------Neo4j Get all skill of 1 person---------------------------//
-exports.GetSkillOnePerson = function(request,response,next){
+exports.GetPersonSkill = function(request,response,next){
   var cypher = "MATCH (n),(m)"
               + "WHERE n.lid='" + request.body.sID  "' AND n-[:SKILL]->m"
               + "RETURN m";
