@@ -11,21 +11,50 @@ var exports = module.exports = {};
 
 //--------------------Neo4j Create new NODE---------------------------//
 exports.CreateNewNode = function(request,response,next){
-  var cypher = "UNWIND {nodes} AS map"
-             + "CREATE (n)"
-             + "SET n = map";
+  var cypher = "CREATE (n{nodes})"
+             + "RETURN n";
 
-  // db.save(request.body.nodes[node],request.body.label, function(err, node) {
-  //     if (err){
-  //       response.send("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
-  //       // response.send(err);
-  //       // throw err;    BAD PRACTICE ERROR HANDLING
-  //       console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
-  //       return next(err);
+  db.query(cypher,{nodes:request.body.nodes}, function(err, result) {
+    if (err) {
+      response.send("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
+      console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
+     //  response.send(err);
+     //  throw err;            BAD PRACTICE ERROR HANDLING
+     return next(err);
+    }
+
+    console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
+    response.send("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
+    console.log(result);
+  });
+};
+
+//--------------------Neo4j Create new RELATIONSHIP---------------------------//
+exports.CreateNewRela = function(request,response,next){
+  var cypher = "UNWIND {skills} AS map"
+             + "' CREATE UNIQUE (n)-[r:" + request.body.label + "]->(map)"
+             + "WHERE n.lid ='"+request.body.nodes[node].sID;
+             + "' RETURN r";
+
+  // for(var node in request.body.nodes){
+  //   var cypher = "MATCH (n),(m)"
+  //              + "WHERE n.lid='" + request.body.nodes[node].sID + "' AND m.skill='" + request.body.nodes[node].eID
+  //              + "' CREATE UNIQUE (n)-[r:" + request.body.label + "]->(m)"
+  //              + "WHERE r.level='Intermediate'"
+  //              + "RETURN n";
+  //
+  //   db.query(cypher, function(err, result) {
+  //     if (err) {
+  //       console.log("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
+  //       response.send("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
+  //      //  response.send(err);
+  //      //  throw err;            BAD PRACTICE ERROR HANDLING
+  //      return next(err);
   //     }
-  //     console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
-  //     response.send("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
-  // });
+  //     console.log("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
+  //     response.send("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
+  //   });
+  // }
 
   db.query(cypher,{nodes:request.body.nodes}, function(err, result) {
     if (err) {
@@ -38,29 +67,6 @@ exports.CreateNewNode = function(request,response,next){
     response.send(result);
    //  console.log(result);
   });
-};
-
-//--------------------Neo4j Create new RELATIONSHIP---------------------------//
-exports.CreateNewRela = function(request,response,next){
-  for(var node in request.body.nodes){
-    var cypher = "MATCH (n),(m)"
-               + "WHERE n.lid='" + request.body.nodes[node].sID + "' AND m.skill='" + request.body.nodes[node].eID
-               + "' CREATE UNIQUE (n)-[r:" + request.body.label + "]->(m)"
-               + "WHERE r.level='Intermediate'"
-               + "RETURN n";
-
-    db.query(cypher, function(err, result) {
-      if (err) {
-        console.log("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
-        response.send("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
-       //  response.send(err);
-       //  throw err;            BAD PRACTICE ERROR HANDLING
-       return next(err);
-      }
-      console.log("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
-      response.send("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
-    });
-  }
 };
 
 //--------------------Neo4j Query---------------------------//
