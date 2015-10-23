@@ -11,12 +11,13 @@ var exports = module.exports = {};
 
 //--------------------Neo4j Create new NODE---------------------------//
 exports.CreateNewNode = function(request,response,next){
-  var cypher = "CREATE (n{nodes}:"+ request.body.label +")"
-             + "RETURN n";
+  var cypher = "CREATE (n{nodes})"
+              + "SET n:" + request.body.label
+              + "RETURN n";
 
   db.query(cypher,{nodes:request.body.nodes}, function(err, result) {
     if (err) {
-      response.send("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
+      response.send(err);
       console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
      //  response.send(err);
      //  throw err;            BAD PRACTICE ERROR HANDLING
@@ -58,8 +59,8 @@ exports.CreateNewRela = function(request,response,next){
 
   db.query(cypher,{nodes:request.body.nodes}, function(err, result) {
     if (err) {
-      response.send();
-     //  response.send(err);
+      // response.send();
+      response.send(err);
      //  throw err;            BAD PRACTICE ERROR HANDLING
      return next(err);
     }
