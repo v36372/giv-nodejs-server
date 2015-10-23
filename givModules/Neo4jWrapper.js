@@ -15,14 +15,15 @@ exports.CreateNewNode = function(request,response,next){
     db.save(node,request.body.label, function(err, node) {
       if (err){
         response.send("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
-      // response.send(err);
-      // throw err;    BAD PRACTICE ERROR HANDLING
-      console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
-      return next(err);
-    }
-    console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
-    response.send("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
-  });
+        // response.send(err);
+        // throw err;    BAD PRACTICE ERROR HANDLING
+        console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
+        return next(err);
+      }
+      console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
+      response.send("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
+    });
+  }
 };
 
 //--------------------Neo4j Create new RELATIONSHIP---------------------------//
