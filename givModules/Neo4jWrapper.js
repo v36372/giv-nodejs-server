@@ -15,11 +15,10 @@ exports.CreateNewNode = function(request,response,next){
     db.save(node,request.body.label, function(err, node) {
       if (err){
         response.send("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
-        // response.send(err);
-        // throw err;    BAD PRACTICE ERROR HANDLING
-        console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
-        return next(err);
-      }
+      // response.send(err);
+      // throw err;    BAD PRACTICE ERROR HANDLING
+      console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
+      return next(err);
     }
     console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
     response.send("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
@@ -34,7 +33,7 @@ exports.CreateNewRela = function(request,response,next){
                + "' CREATE UNIQUE (n)-[r:" + request.body.label + "]->(m)"
                + "WHERE r.level='Intermediate'"
                + "RETURN n";
-               
+
     db.query(cypher, function(err, result) {
       if (err) {
         console.log("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
