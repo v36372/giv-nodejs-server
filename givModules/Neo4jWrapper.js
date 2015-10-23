@@ -55,7 +55,7 @@ exports.CreateNewRela = function(request,response,next){
 
 //--------------------Neo4j Query---------------------------//
 exports.QueryWithSkills = function(request,response,next){
-  var cypher = "MATCH (n)<-[r:skill]-(x)"
+  var cypher = "MATCH (n)<-[r:SKILL]-(x)"
              + "WHERE n.hashtag in {hashtag}"
              + "RETURN DISTINCT x";
 
