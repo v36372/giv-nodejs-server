@@ -12,7 +12,7 @@ var exports = module.exports = {};
 //--------------------Neo4j Create new NODE---------------------------//
 exports.CreateNewNode = function(request,response,next){
   for(node in request.body.nodes){
-    db.save(node,request.body.label, function(err, node) {
+    db.save(request.body.nodes[node],request.body.label, function(err, node) {
       if (err){
         response.send("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
         // response.send(err);
@@ -30,7 +30,7 @@ exports.CreateNewNode = function(request,response,next){
 exports.CreateNewRela = function(request,response,next){
   for(var node in request.body.nodes){
     var cypher = "MATCH (n),(m)"
-               + "WHERE n.lid='" + node.sID + "' AND m.skill='" + node.eID
+               + "WHERE n.lid='" + request.body.nodes[node].sID + "' AND m.skill='" + request.body.nodes[node].eID
                + "' CREATE UNIQUE (n)-[r:" + request.body.label + "]->(m)"
                + "WHERE r.level='Intermediate'"
                + "RETURN n";
