@@ -12,8 +12,8 @@ var exports = module.exports = {};
 //--------------------Neo4j Create new NODE---------------------------//
 exports.CreateNewNode = function(request,response,next){
   var cypher = "CREATE (n{nodes})"
-              + "SET n:" + request.body.label
-              + "RETURN n";
+              + "SET n:'" + request.body.label
+              + "' RETURN n";
 
   db.query(cypher,{nodes:request.body.nodes}, function(err, result) {
     if (err) {
