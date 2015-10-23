@@ -11,10 +11,10 @@ var exports = module.exports = {};
 
 //--------------------Neo4j Create new NODE---------------------------//
 exports.CreateNewNode = function(request,response,next){
-  var cypher = "CREATE (n{nodes}:{label})"
+  var cypher = "CREATE (n{nodes}:"+ request.body.label +")"
              + "RETURN n";
 
-  db.query(cypher,{nodes:request.body.nodes,label:request.body.label}, function(err, result) {
+  db.query(cypher,{nodes:request.body.nodes}, function(err, result) {
     if (err) {
       response.send("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
       console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
