@@ -32,41 +32,23 @@ exports.CreateNewNode = function(request,response,next){
 
 //--------------------Neo4j Create new RELATIONSHIP---------------------------//
 exports.CreateNewRela = function(request,response,next){
-  var cypher = "UNWIND {skills} AS map"
-             + "' CREATE UNIQUE (n)-[r:" + request.body.label + "]->(map)"
-             + "WHERE n.lid ='"+request.body.nodes[node].sID;
-             + "' RETURN r";
+  var cypher = "MATCH (n),(m)"
+              + "WHERE n.lid='" + request.body.node.sID + "' AND m.skill='" + {{skillID}}
+              + "' CREATE UNIQUE (n)-[r:" + request.body.label + "]->(m)"
+              + "' RETURN r";
 
-  // for(var node in request.body.nodes){
-  //   var cypher = "MATCH (n),(m)"
-  //              + "WHERE n.lid='" + request.body.nodes[node].sID + "' AND m.skill='" + request.body.nodes[node].eID
-  //              + "' CREATE UNIQUE (n)-[r:" + request.body.label + "]->(m)"
-  //              + "WHERE r.level='Intermediate'"
-  //              + "RETURN n";
-  //
-  //   db.query(cypher, function(err, result) {
-  //     if (err) {
-  //       console.log("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
-  //       response.send("Neo4jCreateNewRela ---------- FAILED CREATE NEW RELATIONSHIP");
-  //      //  response.send(err);
-  //      //  throw err;            BAD PRACTICE ERROR HANDLING
-  //      return next(err);
-  //     }
-  //     console.log("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
-  //     response.send("Neo4jCreateNewRela ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
-  //   });
-  // }
-
-  db.query(cypher,{nodes:request.body.nodes}, function(err, result) {
+  db.query(cypher,{skillID:request.body.skills}, function(err, result) {
     if (err) {
-      // response.send();
       response.send(err);
+      console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW RELATIONSHIP");
+      // response.send();
      //  throw err;            BAD PRACTICE ERROR HANDLING
      return next(err);
     }
 
-    response.send(result);
-   //  console.log(result);
+    console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
+    response.send("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
+    console.log(result);
   });
 };
 
