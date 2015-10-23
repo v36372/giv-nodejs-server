@@ -15,7 +15,7 @@ exports.CreateNewNode = function(request,response,next){
               + "SET n:" + request.body.label
               + " RETURN n";
 
-  db.query(cypher,{nodes:request.body.nodes, function(err, result) {
+  db.query(cypher,{nodes:request.body.nodes}, function(err, result) {
     if (err) {
       response.send(err);
       console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
