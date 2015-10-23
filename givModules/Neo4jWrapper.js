@@ -32,7 +32,8 @@ exports.CreateNewNode = function(request,response,next){
 
 //--------------------Neo4j Create new RELATIONSHIP---------------------------//
 exports.CreateNewRela = function(request,response,next){
-  var cypher = "MATCH (n),(m{skillID})"
+  var cypher = "START m = node({skillID})"
+              +"MATCH (n)"
               + "WHERE n.lid='" + request.body.sID // + "' AND m.skill={{skillID}}"
               + "' CREATE UNIQUE (n)-[r:" + request.body.label + "]->(m)"
               + "RETURN r";
