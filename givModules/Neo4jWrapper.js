@@ -11,19 +11,33 @@ var exports = module.exports = {};
 
 //--------------------Neo4j Create new NODE---------------------------//
 exports.CreateNewNode = function(request,response,next){
-  for(node in request.body.nodes){
-    db.save(request.body.nodes[node],request.body.label, function(err, node) {
-      if (err){
-        response.send("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
-        // response.send(err);
-        // throw err;    BAD PRACTICE ERROR HANDLING
-        console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
-        return next(err);
-      }
-      console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
-      response.send("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
-    });
-  }
+  var cypher = "UNWIND {nodes} AS map"
+             + "CREATE (n)"
+             + "SET n = map";
+
+  // db.save(request.body.nodes[node],request.body.label, function(err, node) {
+  //     if (err){
+  //       response.send("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
+  //       // response.send(err);
+  //       // throw err;    BAD PRACTICE ERROR HANDLING
+  //       console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
+  //       return next(err);
+  //     }
+  //     console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
+  //     response.send("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
+  // });
+
+  db.query(cypher,{nodes:request.body.nodes, function(err, result) {
+    if (err) {
+      response.send();
+     //  response.send(err);
+     //  throw err;            BAD PRACTICE ERROR HANDLING
+     return next(err);
+    }
+
+    response.send(result);
+   //  console.log(result);
+  });
 };
 
 //--------------------Neo4j Create new RELATIONSHIP---------------------------//
