@@ -27,7 +27,7 @@ exports.CreateNewNode = function(request,response,next){
   //     response.send("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
   // });
 
-  db.query(cypher,{nodes:request.body.nodes, function(err, result) {
+  db.query(cypher,{nodes:request.body.nodes}, function(err, result) {
     if (err) {
       response.send();
      //  response.send(err);
