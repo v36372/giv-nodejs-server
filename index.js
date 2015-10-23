@@ -28,6 +28,7 @@ app.post('/push',PushNotiWrapper.PushHandler);
 app.post('/createnode',Neo4jWrapper.CreateNewNode);
 app.post('/createrela',Neo4jWrapper.CreateNewRela);
 app.post('/query',Neo4jWrapper.QueryWithSkills);
+app.get('/getallskill',Neo4jWrapper.GetAllSkill);
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));

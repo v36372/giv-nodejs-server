@@ -71,3 +71,22 @@ exports.QueryWithSkills = function(request,response,next){
   //  console.log(result);
  });
 };
+
+
+//--------------------Neo4j Get all skill---------------------------//
+exports.GetAllSkill = function(request,response,next){
+  var cypher = "MATCH (n:SKILL)"
+             + "RETURN n";
+
+ db.query(cypher,{}, function(err, result) {
+   if (err) {
+     response.send();
+    //  response.send(err);
+    //  throw err;            BAD PRACTICE ERROR HANDLING
+    return next(err);
+   }
+
+   response.send(result);
+  //  console.log(result);
+ });
+};
