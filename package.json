@@ -12,7 +12,8 @@
     "body-parser":"1.14.0",
     "btoa-atob":"0.1.2",
     "seraph":"",
-    "mocha":""
+    "mocha":"",
+    "supertest":""
   },
   "engines": {
     "node": "0.12.7"
