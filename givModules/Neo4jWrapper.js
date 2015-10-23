@@ -12,6 +12,8 @@ var exports = module.exports = {};
 //--------------------Neo4j Create new NODE---------------------------//
 exports.CreateNewNode = function(request,response,next){
   for(node in request.body.nodes){
+    console.log(node);
+    console.log(nodes[node]);
     db.save(node,request.body.label, function(err, node) {
       if (err){
         response.send("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
