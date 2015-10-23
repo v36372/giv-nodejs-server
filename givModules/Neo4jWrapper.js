@@ -35,7 +35,7 @@ exports.CreateNewRela = function(request,response,next){
   var cypher = "MATCH (n),(m{skillID})"
               + "WHERE n.lid='" + request.body.sID // + "' AND m.skill={{skillID}}"
               + "' CREATE UNIQUE (n)-[r:" + request.body.label + "]->(m)"
-              + "' RETURN r";
+              + "RETURN r";
 
   db.query(cypher,{skillID:request.body.skills}, function(err, result) {
     if (err) {
