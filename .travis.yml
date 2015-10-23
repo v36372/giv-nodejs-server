@@ -7,4 +7,4 @@ node_js:
   - "iojs"
 before_script:
     - npm install
-script: "npm run-script test-ci"
+script: mocha
