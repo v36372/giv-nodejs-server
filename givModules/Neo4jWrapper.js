@@ -61,14 +61,16 @@ exports.QueryWithSkills = function(request,response,next){
 
  db.query(cypher,{hashtag:request.body.skillList.split(',')}, function(err, result) {
    if (err) {
-     response.send();
-    //  response.send(err);
+    //  response.send();
+    console.log("Neo4jCreateNewNode ---------- FAILED QUERY SKILLS");
+     response.send(err);
     //  throw err;            BAD PRACTICE ERROR HANDLING
     return next(err);
    }
 
+   console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY QUERY SKILLS");
    response.send(result);
-  //  console.log(result);
+   console.log(result);
  });
 };
 
@@ -80,13 +82,36 @@ exports.GetAllSkill = function(request,response,next){
 
  db.query(cypher,{}, function(err, result) {
    if (err) {
-     response.send();
-    //  response.send(err);
+    //  response.send();
+     response.send(err);
+     console.log("Neo4jCreateNewNode ---------- FAILED GET ALL SKILLS");
     //  throw err;            BAD PRACTICE ERROR HANDLING
     return next(err);
    }
 
+   console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY GET ALL SKILLS");
    response.send(result);
-  //  console.log(result);
+   console.log(result);
+ });
+};
+
+//--------------------Neo4j Get all skill of 1 person---------------------------//
+exports.GetSkillOnePerson = function(request,response,next){
+  var cypher = "MATCH (n),(m)"
+              + "WHERE n.lid='" + request.body.sID  "' AND n-[:SKILL]->m"
+              + "RETURN m";
+
+ db.query(cypher,{}, function(err, result) {
+   if (err) {
+    //  response.send();
+     response.send(err);
+     console.log("Neo4jCreateNewNode ---------- FAILED GET SKILLS FROM 1 PERSON");
+    //  throw err;            BAD PRACTICE ERROR HANDLING
+    return next(err);
+   }
+
+   console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY GET SKILLS FROM 1 PERSON");
+   response.send(result);
+   console.log(result);
  });
 };
