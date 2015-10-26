@@ -18,13 +18,13 @@ exports.CreateNewNode = function(request,response,next){
   db.query(cypher,{nodes:request.body.nodes}, function(err, result) {
     if (err) {
       response.send(err);
-      console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW NODE");
+      console.log("Neo4j ---------- FAILED CREATE NEW NODE");
      //  response.send(err);
      //  throw err;            BAD PRACTICE ERROR HANDLING
      return next(err);
     }
 
-    console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
+    console.log("Neo4j ---------- SUCCESSFULLY CREATE NEW NODE");
     response.send("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
     console.log(result);
   });
@@ -41,14 +41,14 @@ exports.CreateNewRela = function(request,response,next){
   db.query(cypher,{skillID:request.body.skills}, function(err, result) {
     if (err) {
       response.send(err);
-      console.log("Neo4jCreateNewNode ---------- FAILED CREATE NEW RELATIONSHIP");
+      console.log("Neo4j ---------- FAILED CREATE NEW RELATIONSHIP");
       // response.send();
      //  throw err;            BAD PRACTICE ERROR HANDLING
      return next(err);
     }
 
-    console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
-    response.send("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
+    console.log("Neo4j ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
+    response.send("Neo4j ---------- SUCCESSFULLY CREATE NEW RELATIONSHIP");
     console.log(result);
   });
 };
@@ -57,18 +57,18 @@ exports.CreateNewRela = function(request,response,next){
 exports.QueryWithSkills = function(request,response,next){
   var cypher = "MATCH (n)<-[r:SKILL]-(x)"
              + "WHERE n.skill in {hashtag}"
-             + "RETURN DISTINCT x";
+             + "RETURN x";
 
  db.query(cypher,{hashtag:request.body.skillList.split(',')}, function(err, result) {
    if (err) {
     //  response.send();
-    console.log("Neo4jCreateNewNode ---------- FAILED QUERY SKILLS");
+    console.log("Neo4j ---------- FAILED QUERY SKILLS");
      response.send(err);
     //  throw err;            BAD PRACTICE ERROR HANDLING
     return next(err);
    }
 
-   console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY QUERY SKILLS");
+   console.log("Neo4j ---------- SUCCESSFULLY QUERY SKILLS");
    response.send(result);
    console.log(result);
  });
@@ -84,12 +84,12 @@ exports.GetAllSkill = function(request,response,next){
    if (err) {
     //  response.send();
      response.send(err);
-     console.log("Neo4jCreateNewNode ---------- FAILED GET ALL SKILLS");
+     console.log("Neo4j ---------- FAILED GET ALL SKILLS");
     //  throw err;            BAD PRACTICE ERROR HANDLING
     return next(err);
    }
 
-   console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY GET ALL SKILLS");
+   console.log("Neo4j ---------- SUCCESSFULLY GET ALL SKILLS");
    response.send(result);
    console.log(result);
  });
@@ -105,12 +105,12 @@ exports.GetPersonSkill = function(request,response,next){
    if (err) {
     //  response.send();
      response.send(err);
-     console.log("Neo4jCreateNewNode ---------- FAILED GET SKILLS FROM 1 PERSON");
+     console.log("Neo4j ---------- FAILED GET SKILLS FROM 1 PERSON");
     //  throw err;            BAD PRACTICE ERROR HANDLING
     return next(err);
    }
 
-   console.log("Neo4jCreateNewNode ---------- SUCCESSFULLY GET SKILLS FROM 1 PERSON");
+   console.log("Neo4j ---------- SUCCESSFULLY GET SKILLS FROM 1 PERSON");
    response.send(result);
    console.log(result);
  });
