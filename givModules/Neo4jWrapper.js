@@ -57,7 +57,7 @@ exports.CreateNewRela = function(request,response,next){
 exports.QueryWithSkills = function(request,response,next){
   var cypher = "MATCH (n)<-[r:SKILL]-(x)"
              + "WHERE n.skill in {hashtag}"
-             + "RETURN DISTINCT x";
+             + "RETURN x";
 
  db.query(cypher,{hashtag:request.body.skillList.split(',')}, function(err, result) {
    if (err) {
