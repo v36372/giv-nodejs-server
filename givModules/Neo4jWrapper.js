@@ -53,6 +53,28 @@ exports.CreateNewRela = function(request,response,next){
   });
 };
 
+//--------------------Neo4j Delete RELATIONSHIP---------------------------//
+exports.DeleteRela = function(request,response,next){
+  var cypher = "START m = node({skillID})"
+              +"MATCH (n)-[r:SKILL]->m"
+              + "WHERE n.lid='" + request.body.sID // + "' AND m.skill={{skillID}}"
+              + "' DELETE r";
+
+  db.query(cypher,{skillID:request.body.skills}, function(err, result) {
+    if (err) {
+      response.send(err);
+      console.log("Neo4j ---------- FAILED DELETE RELATIONSHIP");
+      // response.send();
+     //  throw err;            BAD PRACTICE ERROR HANDLING
+     return next(err);
+    }
+
+    console.log("Neo4j ---------- SUCCESSFULLY DELETE RELATIONSHIP");
+    response.send("Neo4j ---------- SUCCESSFULLY DELETE RELATIONSHIP");
+    console.log(result);
+  });
+};
+
 //--------------------Neo4j Query---------------------------//
 exports.QueryWithSkills = function(request,response,next){
   var cypher = "MATCH (n)<-[r:SKILL]-(x)"
