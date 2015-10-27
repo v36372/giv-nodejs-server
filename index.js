@@ -27,6 +27,7 @@ app.post('/push',PushNotiWrapper.PushHandler);
 
 app.post('/createnode',Neo4jWrapper.CreateNewNode);
 app.post('/createrela',Neo4jWrapper.CreateNewRela);
+app.post('/deleterela',Neo4jWrapper.DeleteRela);
 app.post('/query',Neo4jWrapper.QueryWithSkills);
 app.get('/getallskill',Neo4jWrapper.GetAllSkill);
 app.post('/getpersonskill',Neo4jWrapper.GetPersonSkill);
