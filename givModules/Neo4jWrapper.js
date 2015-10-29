@@ -25,7 +25,7 @@ exports.CreateNewNode = function(request,response,next){
     }
 
     console.log("Neo4j ---------- SUCCESSFULLY CREATE NEW NODE");
-    response.send("Neo4jCreateNewNode ---------- SUCCESSFULLY CREATE NEW NODE");
+    response.send("Neo4j ---------- SUCCESSFULLY CREATE NEW NODE");
     console.log(result);
   });
 };
@@ -112,6 +112,27 @@ exports.GetAllSkill = function(request,response,next){
    }
 
    console.log("Neo4j ---------- SUCCESSFULLY GET ALL SKILLS");
+   response.send(result);
+   console.log(result);
+ });
+};
+
+//--------------------Neo4j Get all skill missing 1 person---------------------------//
+exports.GetAllMissingSkillPerson = function(request,response,next){
+  var cypher = "MATCH (n),(m:SKILL)"
+              + "WHERE n.lid='" + request.body.sID + "' AND NOT n-[:SKILL]->m"
+              + " RETURN m";
+
+  db.query(cypher,{}, function(err, result) {
+   if (err) {
+    //  response.send();
+     response.send(err);
+     console.log("Neo4j ---------- FAILED GET ALL MISSING SKILLS PERSON");
+    //  throw err;            BAD PRACTICE ERROR HANDLING
+    return next(err);
+   }
+
+   console.log("Neo4j ---------- SUCCESSFULLY GET ALL MISSING SKILLS PERSON");
    response.send(result);
    console.log(result);
  });

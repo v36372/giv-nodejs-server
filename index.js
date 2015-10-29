@@ -31,6 +31,7 @@ app.post('/deleterela',Neo4jWrapper.DeleteRela);
 app.post('/query',Neo4jWrapper.QueryWithSkills);
 app.get('/getallskill',Neo4jWrapper.GetAllSkill);
 app.post('/getpersonskill',Neo4jWrapper.GetPersonSkill);
+app.post('/getpersonmissingskill',Neo4jWrapper.GetAllMissingSkillPerson);
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
