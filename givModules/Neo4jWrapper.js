@@ -56,7 +56,7 @@ exports.CreateNewRela = function(request,response,next){
 //--------------------Neo4j Delete RELATIONSHIP---------------------------//
 exports.DeleteRela = function(request,response,next){
   var cypher = "START m = node({skillID})"
-              +"MATCH (n)-[r:SKILL]->m"
+              +"MATCH (n)-[r:SKILL]->(m)"
               + "WHERE n.lid='" + request.body.sID // + "' AND m.skill={{skillID}}"
               + "' DELETE r";
 
